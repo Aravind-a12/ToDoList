@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Task from "./Task";
-import Styles from "../App.module.css";
 import Stack from "@mui/material/Stack";
-import { Box, Typography, TextField, Button, Divider } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
+import { Box, Typography, TextField, Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Theme, styled } from "@mui/material/styles";
 
 const TaskList = () => {
   const [taskText, setTaskText] = useState("");
@@ -36,13 +30,6 @@ const TaskList = () => {
     if (taskText.trim() === "") return;
     setTasks([...tasks, newTask]);
     setTaskText("");
-  };
-
-  const handleTaskCompleteToggle = (taskId: any) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, isComplete: !task.isComplete } : task
-    );
-    setTasks(updatedTasks);
   };
 
   const handleRemoveTask = (taskId: any) => {
@@ -134,7 +121,6 @@ const TaskList = () => {
           Add Task
         </Button>
       </Box>
-      <Divider sx={{ mt: 2 }} />
       <DataGrid
         rows={tasks}
         columns={columns}
